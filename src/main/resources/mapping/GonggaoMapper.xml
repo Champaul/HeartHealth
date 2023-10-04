@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.project.mapper.GonggaoMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.project.domain.Gonggao" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="fname" property="fname" jdbcType="VARCHAR" />
+    <result column="fdate" property="fdate" jdbcType="VARCHAR" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="dz" property="dz" jdbcType="INTEGER" />
+    <result column="zd" property="zd" jdbcType="INTEGER" />
+    <result column="idk" property="idk" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    g.id, title, content, fname, fdate,aid,g.state,dz,zd,address,idk
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gonggao g
+    left join admin a
+    on g.aid = a.id
+    where g.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="cn.com.project.domain.Gonggao" >
+    select 
+    <include refid="Base_Column_List" />
+    from gonggao g
+     left join admin a
+    on g.aid = a.id
+     <where>
+           <if test="title !=null and title !=''">
+            and title=#{title}
+           </if>
+           <if test="state !=null and state !=''">
+            and g.state=#{state}
+           </if>
+           <if test="aid !=null ">
+            and aid=#{aid}
+           </if>
+      </where>
+        order by dz desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gonggao
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.project.domain.Gonggao" >
+    insert into gonggao (id, title, content, 
+      fname, fdate)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{fname,jdbcType=VARCHAR}, #{fdate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.project.domain.Gonggao" >
+    insert into gonggao
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="fname != null" >
+        fname,
+      </if>
+      <if test="fdate != null" >
+        fdate,
+      </if>
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+       <if test="dz != null" >
+        dz,
+      </if>
+        <if test="zd != null" >
+        zd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="fname != null" >
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="fdate != null" >
+        #{fdate,jdbcType=VARCHAR},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=VARCHAR},
+      </if>
+       <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+        <if test="dz != null" >
+        #{dz,jdbcType=INTEGER},
+      </if>
+        <if test="zd != null" >
+        #{zd,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.project.domain.Gonggao" >
+    update gonggao
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="fname != null" >
+        fname = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="fdate != null" >
+        fdate = #{fdate,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+       <if test="dz != null" >
+        dz = #{dz,jdbcType=INTEGER},
+      </if>
+       <if test="zd != null" >
+        zd = #{zd,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.project.domain.Gonggao" >
+    update gonggao
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      fname = #{fname,jdbcType=VARCHAR},
+      fdate = #{fdate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
