@@ -1,6 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 5.0.4
--- https://www.phpmyadmin.net/
+
 --
 -- 主机�? localhost
 -- 生成日期�? 2023-05-07 22:40:35
